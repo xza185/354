@@ -30,14 +30,12 @@ while True:
             except ValueError: 
                 max = input("Not a float, please enter maximum price:")
         bed_room=input("please enter number of bedrooms:")
-        bed_room=unicode(bed_room,'utf-8')
         while ~bed_room.isnumeric():
             try:
                 bed_room=int(bed_room)
                 break
             except ValueError: 
                 bed_room = input("Not a integer, please enter number of bedrooms:")
-                bed_room=unicode(bed_room,'utf-8')
         start=input("please enter start date:")
         while True:
             try:
