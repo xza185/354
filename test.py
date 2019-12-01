@@ -147,7 +147,7 @@ while True:
                     if (id in df['listing_id'].values):
                         break
                     else:
-                         id = input("Id not in the listing, Please enter the id you would like to book:")
+                         id = input("Id not in the listing, Please enter the id you would like to review:")
                 else:
                     id = input("Please enter a numeric id:")
             user_name= input("Please enter your name:")
@@ -168,6 +168,7 @@ while True:
             cur.execute(SQLCommand,Value)
             for row in cur:
                 key=row[0];
+            key=key+1
             conn.close()
             ###
             conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
@@ -178,7 +179,12 @@ while True:
             VALUES(%s,%s,%s,%s)
             '''
             Value=(str(key),str(id),str(review),str(user_name))
-            cur.execute(SQLCommand,Value)
+            try:
+                cur.execute(SQLCommand,Value)
+            except pymssql.IntegrityError as e:
+            	print("AN IntegrityError has been caught.")
+            	print('Message = ',e.message)
+            	print('the review was not stored')
             conn.commit()
             conn.close()
 
