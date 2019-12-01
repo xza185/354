@@ -37,14 +37,14 @@ while True:
                 break
             except ValueError: 
                 bed_room = input("Not a integer, please enter number of bedrooms:")
-        start=input("please enter start date:")
+        start=input("please enter start date(YYYY-MM-YY):")
         while True:
             try:
                 start=pd.to_datetime(start)
                 break
             except ValueError: 
                 start = input("Not a valide date, please enter start date:")
-        end=input("please enter end date:")
+        end=input("please enter end date(YYYY-MM-YY):")
         while True:
             try:
                 end=pd.to_datetime(end)
@@ -181,8 +181,8 @@ while True:
             Value=(str(key),str(id),str(review),str(user_name))
             try:
                 cur.execute(SQLCommand,Value)
-            except pymssql.IntegrityError as e:
-            	print("AN IntegrityError has been caught.")
+            except pymssql.OperationalError as e:
+            	print("AN Error has been caught.")
             	print('Message = ',e.message)
             	print('the review was not stored')
             conn.commit()
