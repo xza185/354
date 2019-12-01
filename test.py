@@ -181,11 +181,12 @@ while True:
             Value=(str(key),str(id),str(review),str(user_name))
             try:
                 cur.execute(SQLCommand,Value)
-                conn.commit()
+                #conn.commit()
+                print('The review was stored')
             except pymssql.OperationalError as e:
             	print("AN Error has been caught.")
             	print('Message = ',e.args[1])
-            	print('the review was not stored')
+            	print('The review was not stored')
             conn.close()
     else:
     	print('Not a valid input')
