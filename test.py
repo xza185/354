@@ -187,6 +187,8 @@ while True:
             	print('the review was not stored')
             conn.commit()
             conn.close()
+    else:
+    	print('Not a valid input')
 
 
 
