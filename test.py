@@ -58,16 +58,17 @@ while True:
         SELECT L.id,L.name,L.description,L.number_of_bedrooms, R.Total_price from
         (SELECT L.id,sum(C.price) as Total_price from Listings L, Calendar C 
         WHERE L.id=C.listing_id AND C.date>=%s AND C.date<=%s 
-        AND C.price>=%s AND C.price<=%s AND L.number_of_bedrooms=%s
+        AND L.number_of_bedrooms=%s
         Group by L.id
         Having count(*)>%s) R, Listings L
-        WHERE R.id=L.id
+        WHERE R.id=L.id AND
+        R.Total_price>=%s AND R.Total_price<=%s 
         '''
 
-        Value=(str(start)[0:10],str(end)[0:10],str(min),str(max),str(bed_room),str(day.days))
+        Value=(str(start)[0:10],str(end)[0:10],str(bed_room),str(day.days),,str(min),str(max))
         cur.execute(SQLCommand,Value)
         print('processing:\n')
-        df=pd.DataFrame(columns=['id','name','description','number_of_bedrooms', 'price'])
+        df=pd.DataFrame(columns=['id','name','description','number_of_bedrooms', 'Total_price'])
         #row = cur.fetchone()
         for row in cur:
             #print (("SQL Server standard login name= %s") %  (row[0]))
