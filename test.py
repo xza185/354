@@ -123,7 +123,7 @@ while True:
             print('You have successfully booked a house.')
             continue
     if (t=='w'):
-        name=input('please enter your booking name(Capital sensitive):')
+        name=input('please enter name of the person made the booking(Capital sensitive):')
         conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
         cur = conn.cursor()
         SQLCommand ='''
