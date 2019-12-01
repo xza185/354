@@ -118,7 +118,72 @@ while True:
             '''
             Value=(str(key),str(id),str(name),str(start),str(end),str(number_of_guests))
             cur.execute(SQLCommand,Value)
+            conn.commit()
             conn.close()
+    if (t=='w'):
+        name=input('please enter your booking name(Capital sensitive):')
+        conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
+        cur = conn.cursor()
+        SQLCommand ='''
+        SELECT * from Bookings B
+        WHERE B.guest_name=%s
+        '''
+        cur.execute(SQLCommand,str(name))
+        print('processing:\n')
+        df=pd.DataFrame(columns=['id','listing_id','guest_name','stay_from','stay_to','number_of_guests'])
+        #row = cur.fetchone()
+        for row in cur:
+            #print (("SQL Server standard login name= %s") %  (row[0]))
+            df=df.append({'id':row[0],'listing_id':row[1],'guest_name':row[2],'stay_from':row[3], 'stay_to':row[4],'number_of_guests':row[5]},ignore_index=True)
+        conn.close()
+        if df.empty:
+            print('No result found\n')
+        else:    
+            print(df)
+            id = input("Please enter the listing id you would like to book:")
+            while True:
+                if id.isnumeric():
+                    id = int(id)
+                    if (id in df['listing_id'].values):
+                        break
+                    else:
+                         id = input("Id not in the listing, Please enter the id you would like to book:")
+                else:
+                    id = input("Please enter a numeric id:")
+            user_name= input("Please enter your name:")
+            date=input("Please enter current date:")
+            while True:
+                try:
+                    date=pd.to_datetime(date)
+                    break
+                except ValueError: 
+                    date = input("Not a valide date, please enter date:")
+            review=input("Please enter your comments:")
+            ##get the key
+            conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
+            cur = conn.cursor()
+            SQLCommand ='''
+            SELECT max(R.id) from Review R
+            '''
+            cur.execute(SQLCommand,Value)
+            for row in cur:
+                key=row[0];
+            conn.close()
+            ###
+            conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
+            cur = conn.cursor()
+            SQLCommand ='''
+            INSERT INTO Review
+            (id, listing_id, comments, guest_name)
+            VALUES(%s,%s,%s,%s)
+            '''
+            Value=(str(key),str(id),str(comments),str(user_name))
+            cur.execute(SQLCommand,Value)
+            conn.commit()
+            conn.close()
+
+
+
 
 
 
