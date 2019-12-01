@@ -183,7 +183,7 @@ while True:
                 cur.execute(SQLCommand,Value)
             except pymssql.OperationalError as e:
             	print("AN Error has been caught.")
-            	print('Message = ',e.message)
+            	print('Message = ',e.args[1])
             	print('the review was not stored')
             conn.commit()
             conn.close()
