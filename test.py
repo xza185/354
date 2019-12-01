@@ -2,6 +2,11 @@ import string
 import pandas as pd
 import pymssql
 
+def first_25(d):
+	if len(d)<=25:
+		return d
+	else:
+		return d[0:25]
 
 while True:
 	print("Search Listings type s; Book Listing type b; Write Review type w; Quit type q")
@@ -67,8 +72,12 @@ while True:
     		df=df.append({'id':row[0],'name':row[1],'description':row[2],'number_of_bedrooms':row[3], 'price':row[4]})
 			# from Python version 3: print is a function, not a statement.
     		row = cur.fetchone()
-    	print(df)
-		conn.close()
+    	conn.close()
+    	df['description']=df['description'].apply(first_25)
+    	if df.empty:
+    		print('No result found\n')
+    	else:	
+    		print(df)
 
 
 
