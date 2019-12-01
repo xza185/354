@@ -52,7 +52,7 @@ while True:
                 end = input("Not a valide date, please enter end date:")
         ##
         conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
-        cur = conn.cursor()
+        cursor = conn.cursor()
         SQLCommand =('SELECT L.id,L.name,L.description,L.number_of_bedrooms, C.price from Listings L, Calendar C'
                     'WHERE L.id=C.listing_id '
                     'AND C.date>=?'
