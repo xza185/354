@@ -165,7 +165,7 @@ while True:
             SQLCommand ='''
             SELECT max(R.id) from Review R
             '''
-            cur.execute(SQLCommand,Value)
+            cur.execute(SQLCommand)
             for row in cur:
                 key=row[0];
             key=key+1
