@@ -8,6 +8,7 @@ def first_25(d):
     else:
         return d[0:25]
 
+
 while True:
     print("Search Listings type s; Book Listing type b; Write Review type w; Quit type q")
     t = input(">")
@@ -81,7 +82,40 @@ while True:
             print('No result found\n')
         else:    
             print(df)
-        print("Please enter the ")
+            id = input("Please enter the id you would like to book:")
+            while True:
+            	if id.isnumeric():
+            		id = int(id)
+            		if id in df['id'].values:
+            			break
+            		else:
+            		   id = input("Id not in the listing, Please enter the id you would like to book:")
+                id = input("Please enter a numeric id:")
+            name=input('please enter your name:')
+            number_of_guests=input('please enter number_of_guests:')
+            while ~number_of_guests.isnumeric(): 
+                number_of_guests = input("Not a integer, please enter number_of_guests:")
+            conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
+            cur = conn.cursor()
+            SQLCommand ='''
+            SELECT COUNT(*) FROM Bookings
+            '''
+            cur.execute(SQLCommand)
+            for row in cur:
+            	key=row[0];
+            conn.close()
+            conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
+            cur = conn.cursor()
+            SQLCommand ='''
+            INSERT INTO Bookings
+            (id, listing_id, guest_name, stay_from, stay_to, number_of_guests)
+            VALUES(%s,%s,%s,%s,%s,%s)
+            '''
+            Value=(str(key),str(id),str(name),str(start),str(end),str(number_of_guests))
+            cur.execute(SQLCommand,Value)
+            conn.close()
+
+            
 
 
 
