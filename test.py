@@ -56,10 +56,10 @@ while True:
         SQLCommand ='''
         SELECT L.id,L.name,L.description,L.number_of_bedrooms, C.price from Listings L, Calendar C 
         WHERE L.id=C.listing_id AND C.date>=%s AND C.date<=%s 
-        AND C.price>=%f AND C.price<=%f AND L.number_of_bedrooms=%d
+        AND C.price>=%s AND C.price<=%s AND L.number_of_bedrooms=%s
         '''
             
-        Value=(str(start)[0:10],str(end)[0:10],min,max,bed_room)
+        Value=(str(start)[0:10],str(end)[0:10],str(min),str(max),str(bed_room))
         cursor.execute(SQLCommand,Value)
         df=pd.DataFrame(columns=['id','name','description','number_of_bedrooms', 'price'])
         row = cur.fetchone()
