@@ -116,7 +116,7 @@ while True:
             (id, listing_id, guest_name, stay_from, stay_to, number_of_guests)
             VALUES(%s,%s,%s,%s,%s,%s)
             '''
-            Value=(str(key),str(id),str(name),str(start),str(end),str(number_of_guests))
+            Value=(str(key),str(id),str(name),str(start)[0:10],str(end)[0:10],str(number_of_guests))
             cur.execute(SQLCommand,Value)
             conn.commit()
             conn.close()
@@ -179,7 +179,8 @@ while True:
              ROLLBACK TRANSACTION;
             END;
             '''
-            cur.execute(SQLCommand,str(date))
+            cur.execute(SQLCommand,str(date)[0:10])
+            conn.commit()
             conn.close()
             print('done.')
             ##end
