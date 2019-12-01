@@ -55,7 +55,7 @@ while True:
         conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
         cur = conn.cursor()
         SQLCommand ='''
-        SELECT L.name,L.description,L.number_of_bedrooms, R.Total_price from
+        SELECT L.id,L.name,L.description,L.number_of_bedrooms, R.Total_price from
         (SELECT L.id,sum(C.price) as Total_price from Listings L, Calendar C 
         WHERE L.id=C.listing_id AND C.date>=%s AND C.date<=%s 
         AND C.price>=%s AND C.price<=%s AND L.number_of_bedrooms=%s
