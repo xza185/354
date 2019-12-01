@@ -10,7 +10,7 @@ def first_25(d):
 
 
 while True:
-    print("Search Listings type s; Book Listing type b; Write Review type w; Quit type q")
+    print("Search Listings type s; Write Review type w; Quit type q")
     t = input(">")
     if t=='q':
         break 
@@ -120,6 +120,7 @@ while True:
             cur.execute(SQLCommand,Value)
             conn.commit()
             conn.close()
+            print('You have successfully booked a house.')
             continue
     if (t=='w'):
         name=input('please enter your booking name(Capital sensitive):')
@@ -175,7 +176,7 @@ while True:
                AND B.stay_to<%s
                )
             BEGIN
-             RAISERROR ('Can only review the listing after the stay', 16, 1); 
+             RAISERROR ('Can only review the listing after the stay_to', 16, 1); 
              ROLLBACK TRANSACTION;
             END;
             '''
@@ -209,7 +210,7 @@ while True:
                 cur.execute(SQLCommand,Value)
                 print('The review was stored')
             except pymssql.OperationalError as e:
-            	print("AN Error has been caught.")
+            	print("An Error has been caught.")
             	print('Message = ',e.args[1])
             	print('The review was not stored')
             	conn.close()
