@@ -84,15 +84,14 @@ while True:
             print(df)
             id = input("Please enter the id you would like to book:")
             while True:
-            	if id.isnumeric():
-            		id = int(id)
-            		if id in df['id'].values:
-            			break
-            		else:
-            	       id = input("Id not in the listing, Please enter the id you would like to book:")
+                if id.isnumeric():
+                    id = int(id)
+                    if (id in df['id'].values):
+                        break
+                    else:
+                         id = input("Id not in the listing, Please enter the id you would like to book:")
                 else:
                     id = input("Please enter a numeric id:")
-
             name=input('please enter your name:')
             number_of_guests=input('please enter number_of_guests:')
             while ~number_of_guests.isnumeric(): 
