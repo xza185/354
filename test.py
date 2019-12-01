@@ -50,7 +50,16 @@ while True:
 		##
 		conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
 		cur = conn.cursor()
-		cur.execute('SELECT id,name,description,number_of_bedrooms, price from helpdesk')
+		SQLCommand =('SELECT L.id,L.name,L.description,L.number_of_bedrooms, C.price from Listings L, Calendar C'
+					'WHERE L.id=C.listing_id '
+					'AND C.date>=?'
+					'AND C.date<=?'
+					'AND C.price>=?'
+					'AND C.price<=?'
+					'AND L.number_of_bedrooms=?'
+			)
+		Value=[start,end,min,max,bed_room]
+		cursor.execute(SQLCommand,Values)
 		df=pd.DataFrame(columns=['id','name','description','number_of_bedrooms', 'price'])
 		row = cur.fetchone()
 		while row:
@@ -58,15 +67,9 @@ while True:
     		df=df.append({'id':row[0],'name':row[1],'description':row[2],'number_of_bedrooms':row[3], 'price':row[4]})
 			# from Python version 3: print is a function, not a statement.
     		row = cur.fetchone()
-    	print(row)
+    	print(df)
 		conn.close()
-		##
-	num=unicode(num,'utf-8')
-	if num.isnumeric():
-		break
 
-
-	 id, name, first 25 characters of description, number of bedrooms, price
 
 
 
