@@ -90,7 +90,9 @@ while True:
             			break
             		else:
             	       id = input("Id not in the listing, Please enter the id you would like to book:")
-                id = input("Please enter a numeric id:")
+                else:
+                    id = input("Please enter a numeric id:")
+
             name=input('please enter your name:')
             number_of_guests=input('please enter number_of_guests:')
             while ~number_of_guests.isnumeric(): 
