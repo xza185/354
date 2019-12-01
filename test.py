@@ -179,15 +179,16 @@ while True:
             VALUES(%s,%s,%s,%s)
             '''
             Value=(str(key),str(id),str(review),str(user_name))
-            # try:
-            #     cur.execute(SQLCommand,Value)
-            #     conn.commit()
-            #     print('The review was stored')
-            # except pymssql.OperationalError as e:
-            # 	print("AN Error has been caught.")
-            # 	print('Message = ',e.args[1])
-            # 	print('The review was not stored')
-            cur.execute(SQLCommand,Value)
+            try:
+                cur.execute(SQLCommand,Value)
+                print('The review was stored')
+            except pymssql.OperationalError as e:
+            	print("AN Error has been caught.")
+            	print('Message = ',e.args[1])
+            	print('The review was not stored')
+            	conn.close()
+            	continue
+            #except _mssql.MSSQLDatabaseException:
             conn.commit()
             conn.close()
     else:
