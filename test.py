@@ -61,13 +61,14 @@ while True:
             
         Value=(str(start)[0:10],str(end)[0:10],str(min),str(max),str(bed_room))
         cur.execute(SQLCommand,Value)
+        print('processing:\n')
         df=pd.DataFrame(columns=['id','name','description','number_of_bedrooms', 'price'])
-        row = cur.fetchone()
-        while row:
+        #row = cur.fetchone()
+        for row in cur:
             #print (("SQL Server standard login name= %s") %  (row[0]))
             df=df.append({'id':row[0],'name':row[1],'description':row[2],'number_of_bedrooms':row[3], 'price':row[4]},ignore_index=True)
             # from Python version 3: print is a function, not a statement.
-            row = cur.fetchone()
+            #row = cur.fetchone()
         conn.close()
         df['description']=df['description'].apply(first_25)
         if df.empty:
