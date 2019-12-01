@@ -177,7 +177,7 @@ while True:
             (id, listing_id, comments, guest_name)
             VALUES(%s,%s,%s,%s)
             '''
-            Value=(str(key),str(id),str(comments),str(user_name))
+            Value=(str(key),str(id),str(review),str(user_name))
             cur.execute(SQLCommand,Value)
             conn.commit()
             conn.close()
