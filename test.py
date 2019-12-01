@@ -50,16 +50,21 @@ while True:
                 break
             except ValueError: 
                 end = input("Not a valide date, please enter end date:")
+        day=end-start
         ##
         conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
         cur = conn.cursor()
         SQLCommand ='''
-        SELECT L.id,L.name,L.description,L.number_of_bedrooms, C.price from Listings L, Calendar C 
+        SELECT L.name,L.description,L.number_of_bedrooms, R.Total_price from
+        (SELECT L.id,sum(C.price) as Total_price from Listings L, Calendar C 
         WHERE L.id=C.listing_id AND C.date>=%s AND C.date<=%s 
         AND C.price>=%s AND C.price<=%s AND L.number_of_bedrooms=%s
+        Group by L.id
+        Having count(*)>%s) R, Listings L
+        WHERE R.id=L.id
         '''
-            
-        Value=(str(start)[0:10],str(end)[0:10],str(min),str(max),str(bed_room))
+
+        Value=(str(start)[0:10],str(end)[0:10],str(min),str(max),str(bed_room),str(day.days))
         cur.execute(SQLCommand,Value)
         print('processing:\n')
         df=pd.DataFrame(columns=['id','name','description','number_of_bedrooms', 'price'])
@@ -75,6 +80,7 @@ while True:
             print('No result found\n')
         else:    
             print(df)
+        print("Please enter the ")
 
 
 
