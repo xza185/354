@@ -65,7 +65,7 @@ while True:
         R.Total_price>=%s AND R.Total_price<=%s 
         '''
 
-        Value=(str(start)[0:10],str(end)[0:10],str(bed_room),str(day.days),,str(min),str(max))
+        Value=(str(start)[0:10],str(end)[0:10],str(bed_room),str(day.days),str(min),str(max))
         cur.execute(SQLCommand,Value)
         print('processing:\n')
         df=pd.DataFrame(columns=['id','name','description','number_of_bedrooms', 'Total_price'])
