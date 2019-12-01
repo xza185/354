@@ -94,8 +94,12 @@ while True:
                     id = input("Please enter a numeric id:")
             name=input('please enter your name:')
             number_of_guests=input('please enter number_of_guests:')
-            while ~number_of_guests.isnumeric(): 
-                number_of_guests = input("Not a integer, please enter number_of_guests:")
+            while True:
+                if number_of_guests.isnumeric():
+                   break;
+                else: 
+                   number_of_guests = input("Not a integer, please enter number_of_guests:")
+
             conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
             cur = conn.cursor()
             SQLCommand ='''
