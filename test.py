@@ -59,7 +59,7 @@ while True:
         SELECT L.id,L.name,L.description,L.number_of_bedrooms, R.Total_price from
         (SELECT L.id,sum(C.price) as Total_price from Listings L, Calendar C 
         WHERE L.id=C.listing_id AND C.date>=%s AND C.date<=%s 
-        AND L.number_of_bedrooms=%s
+        AND L.number_of_bedrooms=%s AND C.available=1
         Group by L.id
         Having count(*)>%s) R, Listings L
         WHERE R.id=L.id AND
