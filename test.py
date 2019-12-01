@@ -120,6 +120,7 @@ while True:
             cur.execute(SQLCommand,Value)
             conn.commit()
             conn.close()
+            continue
     if (t=='w'):
         name=input('please enter your booking name(Capital sensitive):')
         conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
@@ -140,7 +141,7 @@ while True:
             print('No result found\n')
         else:    
             print(df)
-            id = input("Please enter the listing id you would like to book:")
+            id = input("Please enter the listing id you would like to review:")
             while True:
                 if id.isnumeric():
                     id = int(id)
@@ -188,9 +189,9 @@ while True:
             	print('The review was not stored')
             	conn.close()
             	continue
-            #except _mssql.MSSQLDatabaseException:
             conn.commit()
             conn.close()
+            continue
     else:
     	print('Not a valid input')
 
