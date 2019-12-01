@@ -61,7 +61,7 @@ while True:
                     'AND C.price<=?'
                     'AND L.number_of_bedrooms=?'
             )
-        Value=[start,end,min,max,bed_room]
+        Value=(start,end,min,max,bed_room)
         cursor.execute(SQLCommand,Value)
         df=pd.DataFrame(columns=['id','name','description','number_of_bedrooms', 'price'])
         row = cur.fetchone()
