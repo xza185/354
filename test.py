@@ -159,6 +159,30 @@ while True:
                     break
                 except ValueError: 
                     date = input("Not a valide date, please enter date:")
+            ##update trigger
+            print("Updating trigger...")
+            conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
+            cur = conn.cursor()
+            SQLCommand ='''
+            ALTER TRIGGER cannotReviewBeforeLeaving 
+            ON Review
+            AFTER INSERT
+            AS 
+            IF NOT EXISTS (select * From Bookings B, inserted I, Calendar C 
+               WHERE I.listing_id=B.listing_id
+               AND I.guest_name=B.guest_name
+               AND I.listing_id=B.listing_id
+               AND B.stay_to<%s
+               )
+            BEGIN
+             RAISERROR ('Can only review the listing after the stay', 16, 1); 
+             ROLLBACK TRANSACTION;
+            END;
+            '''
+            cur.execute(SQLCommand,str(date))
+            conn.close()
+            print('done.')
+            ##end
             review=input("Please enter your comments:")
             ##get the key
             conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
