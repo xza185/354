@@ -89,7 +89,7 @@ while True:
             		if id in df['id'].values:
             			break
             		else:
-            		   id = input("Id not in the listing, Please enter the id you would like to book:")
+            	       id = input("Id not in the listing, Please enter the id you would like to book:")
                 id = input("Please enter a numeric id:")
             name=input('please enter your name:')
             number_of_guests=input('please enter number_of_guests:')
@@ -102,7 +102,7 @@ while True:
             '''
             cur.execute(SQLCommand)
             for row in cur:
-            	key=row[0];
+                key=row[0];
             conn.close()
             conn = pymssql.connect(host='cypress.csil.sfu.ca', user='s_xza185', password='JT3rG3HthGtMbg3A', database='xza185354')
             cur = conn.cursor()
@@ -115,7 +115,7 @@ while True:
             cur.execute(SQLCommand,Value)
             conn.close()
 
-            
+
 
 
 
